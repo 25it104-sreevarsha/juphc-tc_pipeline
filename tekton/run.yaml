@@ -1,7 +1,19 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: tax-calculator-pipeline-run
+  name: tc-pipeline-run
 spec:
   pipelineRef:
-    name: tax-calculator-pipeline
+    name: tc-pipeline
+  params:
+    - name: pipeline-param
+      value: "production"
+  workspaces:
+    - name: pipeline-shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
